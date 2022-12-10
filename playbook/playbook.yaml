@@ -11,7 +11,7 @@
       ansible.builtin.cron:
         name: "backup_dirs"
         minute: "0"
-        hour: "5,2"
+        hour: "1"
         job: "backup /home/{{ item }}"
       with_items: home_dirs.stdout_lines
     - ansible.builtin.debug:
