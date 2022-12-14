@@ -3,6 +3,7 @@
 - hosts: all
   tasks:
     - name: get cron jobs
+      shell: crontab -l
       ansible.builtin.cron:
         name: "Curl"
         minute: "0"
@@ -11,6 +12,7 @@
       register: ansible_var
     - ansible.builtin.debug:
         var: ansible_var
+        when: ansible_var.stdout.find('Curl') == -1
 
 
 
