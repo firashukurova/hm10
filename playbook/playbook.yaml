@@ -1,21 +1,17 @@
 ---  
 
-- name: Cronjob
-  hosts: all 
-  become: true 
-
+- hosts: all
   tasks:
-    - ansible.builtin.shell: ls /Users
-      register: home_dirs
-    - name: add home dirs to cron
+    - name: get cron jobs
       ansible.builtin.cron:
-        name: "backup_dirs"
+        name: "Curl"
         minute: "0"
         hour: "1"
-        job: "backup /home/{{ item }}"
-      with_items: home_dirs.stdout_lines
+        job: "crontab -l"
+      register: ansible_var
     - ansible.builtin.debug:
-        var: home_dirs.stdout_lines
+        var: ansible_var
+
 
 
     
