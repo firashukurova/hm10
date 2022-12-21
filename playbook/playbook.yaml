@@ -1,15 +1,15 @@
 ---  
 
 - hosts: all
+
   tasks:
-    - name: get cron jobs
-      shell: crontab -l
+
+    - ansible.builtin.shell: crontab -l
+      register: ansible_var
+    - name: "get cron jobs"
       ansible.builtin.cron:
         name: "Curl"
         minute: "0"
-        hour: "1"
-        job: "crontab -l"
-      register: ansible_var
     - ansible.builtin.debug:
         var: ansible_var
         when: ansible_var.stdout.find('Curl') == -1
